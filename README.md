@@ -39,15 +39,11 @@ Vous êtes curieux ? Il est disponible ici 👉 [Voir le dashboard en ligne](htt
 
 L’ensemble du processus repose sur plusieurs scripts Python, activés séquentiellement pour automatiser la prédiction des labels sur les avis clients :
 
-  **predict_batch.py :** sélectionne un batch de commentaires non encore labellisés depuis la base de données, exécute la pipeline de prédiction, et génère les résultats.
-
-  **etl_insert.py :** insère ces résultats dans la base Supabase.
-
-  **main.py** : orchestre une session de prédiction complète en appelant successivement predict_batch.py puis etl_insert.py.
-
-  **batch_loop.py :** exécute main.py en boucle jusqu’à ce qu’il n’y ait plus de données à prédire. Une fois la base entièrement traitée, le processus s’arrête automatiquement.
-
-  **utils.py :** regroupe l’ensemble des composants du modèle : fonctions de prétraitement, vectorisation (TF-IDF + SVD), classifieur (XGBClassifier), et corrections post-prédiction.
+  >**predict_batch.py :** sélectionne un batch de commentaires non encore labellisés depuis la base de données, exécute la pipeline de prédiction, et génère les résultats.<br>
+  >**etl_insert.py :** insère ces résultats dans la base Supabase.<br>
+  >**main.py** : orchestre une session de prédiction complète en appelant successivement predict_batch.py puis etl_insert.py.<br>
+  >**batch_loop.py :** exécute main.py en boucle jusqu’à ce qu’il n’y ait plus de données à prédire. Une fois la base entièrement traitée, le processus s’arrête automatiquement.<br>
+  >**utils.py :** regroupe l’ensemble des composants du modèle : fonctions de prétraitement et extraction de features, vectorisation (TF-IDF + SVD), classifieur (XGBClassifier), et corrections post-prédiction.<br>
 
   ## Zoom sur la pipeline de prediction 
 
@@ -59,24 +55,22 @@ Le cœur du modèle repose sur une pipeline Scikit-learn relativement complexe, 
 
 ##### Cette pipeline est encadrée par deux classes personnalisées :
 
-  **Preprocessor(BaseEstimator, TransformerMixin) :**
+ > **Preprocessor(BaseEstimator, TransformerMixin) :**<br>
     Ce préprocesseur intervient avant la pipeline. Il concatène le titre et le texte de chaque commentaire pour en faire un champ unique d’analyse. Il sélectionne également les colonnes pertinentes, et convertit certaines variables au bon format (booléen, catégoriel, etc.).
 
-  **LabelCorrection(BaseEstimator, TransformerMixin) :**
-    Cette étape, placée après la prédiction, applique des règles logiques simples pour corriger certains cas incohérents :
-
-  - Si la note est ≥ 4 et qu’aucun problème n’a été détecté, le label est corrigé en “aucun problème”.
-
-  - Si aucun label n’a été détecté, on assigne “autre problème” pour ne pas produire de sortie vide.
+ > **LabelCorrection(BaseEstimator, TransformerMixin) :** <br>
+    Cette étape, placée après la prédiction, applique des règles logiques simples pour corriger certains cas incohérents :<br>
+  > - Si la note est ≥ 4 et qu’aucun problème n’a été détecté, le label est corrigé en “aucun problème”.<br>
+  > - Si aucun label n’a été détecté, on assigne “autre problème” pour ne pas produire de sortie vide.
 
 ##### Structure interne de la pipeline 
 
 On distingue deux grands groupes de features :
 
- - Un premier groupe issu des textes (titre + commentaire), vectorisés avec un **TfidfVectorizer** puis réduits à 20 dimensions grâce à une décomposition en composantes principales **(TruncatedSVD)**.
+ > - Un premier groupe issu des textes (titre + commentaire), vectorisés avec un **TfidfVectorizer** puis réduits à 20 dimensions grâce à une décomposition en composantes principales **(TruncatedSVD)**.<br>
 
- - Un second groupe constitué de features construites à la main, via des **FunctionTransformer**.
-  Il s'agit notamment de détecteurs de mots-clés ou d'expressions régulières liés à des typologies précises de problèmes : retours clients, qualité perçue, effets secondaires, etc.
+ > - Un second groupe constitué de features construites à la main, via des **FunctionTransformer**.<br>
+  Il s'agit notamment de détecteurs de mots-clés ou d'expressions régulières liés à des typologies précises de problèmes : retours clients, qualité perçue, effets secondaires, etc.<br>
     Ces features sont ensuite standardisées par un **StandardScaler**.
 
 La sortie est ensuite transmise à un **MultiOutputClassifier**, qui encapsule un XGBClassifier pour traiter la classification multilabel.
@@ -100,7 +94,7 @@ Les éléments suivants ont été testés :
 - **n_components :** nombre de dimensions retenues *(retenu : 20 )* 
 
 #### Modèles testés 
-
+>*Recherche des hyperparamètres du modèle d’apprentissage, comme max_depth, learning_rate, ou n_estimators...*
  - RandomForestClassifier
 
  - HistGradientBoostingClassifier
@@ -113,23 +107,20 @@ La grille a été explorée avec une validation croisée à 3 plis (cv=3) et un 
     
   Ce score est considéré comme honorable compte tenu :
 
-  De la nature multi-label du problème (chaque avis pouvant relever de plusieurs problématiques),
+  - De la nature multi-label du problème (chaque avis pouvant relever de plusieurs problématiques),
 
-  Ainsi que de la variabilité des textes, souvent rédigés par des particuliers dans un langage non standardisé.
+  - Ainsi que de la variabilité des textes, souvent rédigés par des particuliers dans un langage non standardisé.
 
-Un extrait du notebook **GridSearchCV.ipynb est disponible** dans le dépôt pour consultation.
+>*Un extrait du notebook **GridSearchCV.ipynb est disponible** dans le dépôt pour consultation.*
 
 
 ## Le dashboard avec streamlit
 L’application Streamlit comprend quatre pages :
 
-  - Une page d’accueil présentant des informations générales et quelques graphiques clés.
-
-  - Une vue d’ensemble de l’évolution des problèmes signalés dans le temps.
-
-  - Un zoom sur les produits les plus concernés par type de problème.
-
-  - Une page d’export, qui permet de télécharger une sélection de commentaires selon les filtres choisis (en excel ou csv au choix)
+  > - Une page d’accueil présentant des informations générales et quelques graphiques clés.<br>
+  > - Une vue d’ensemble de l’évolution des problèmes signalés dans le temps.<br>
+  > - Un zoom sur les produits les plus concernés par type de problème.<br>
+  > - Une page d’export, qui permet de télécharger une sélection de commentaires selon les filtres choisis (en excel ou csv au choix)
 
 Je n’en dis pas plus…
 ➡️ Pour tester le dashboard en ligne, rendez-vous ici : [Voir le dashboard en ligne](https://caroline-menard-amazon-reviews-dashboard.streamlit.app/)
