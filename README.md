@@ -69,7 +69,7 @@ On distingue deux grands groupes de features :
 
  > - Un premier groupe issu des textes (titre + commentaire), vectorisés avec un **TfidfVectorizer** puis réduits à 20 dimensions grâce à une décomposition en composantes principales **(TruncatedSVD)**.<br>
 
- > - Un second groupe constitué de features construites à la main, via des **FunctionTransformer**.<br>
+ > - Un second groupe constitué de features construites "à la main", via des **FunctionTransformer**.<br>
   Il s'agit notamment de détecteurs de mots-clés ou d'expressions régulières liés à des typologies précises de problèmes : retours clients, qualité perçue, effets secondaires, etc.<br>
     Ces features sont ensuite standardisées par un **StandardScaler**.
 
