@@ -51,7 +51,7 @@ L’ensemble du processus repose sur plusieurs scripts Python, activés séquent
 
   ## Zoom sur la pipeline de prediction 
 
-  ### Au coeur de la Pipeline:
+  ### Au coeur de la Pipeline
 Le cœur du modèle repose sur une pipeline Scikit-learn relativement complexe, illustrée ci-dessous :
 <p align="center">
   <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/pipeline.png?raw=true" alt="Architecture" width="1000">
@@ -69,7 +69,7 @@ Le cœur du modèle repose sur une pipeline Scikit-learn relativement complexe, 
 
   - Si aucun label n’a été détecté, on assigne “autre problème” pour ne pas produire de sortie vide.
 
-##### Structure interne de la pipeline :
+##### Structure interne de la pipeline 
 
 On distingue deux grands groupes de features :
 
@@ -87,7 +87,7 @@ L’objectif était de trouver la meilleure combinaison de paramètres pour chaq
 
 Les éléments suivants ont été testés :
 
-#### TF-IDF Vectorizer :
+#### TF-IDF Vectorizer 
 
   - **max_features :** nombre maximum de mots conservés *(retenu : None)*
 
@@ -95,11 +95,11 @@ Les éléments suivants ont été testés :
 
   - **ngram_range :** trigrammes , bigrammes testés en plus des unigrams *( retenu : (1, 3))*
 
-#### Réduction de dimension (SVD) :
+#### Réduction de dimension (SVD) 
 
 - **n_components :** nombre de dimensions retenues *(retenu : 20 )* 
 
-#### Modèles testés :
+#### Modèles testés 
 
  - RandomForestClassifier
 
