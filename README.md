@@ -51,7 +51,23 @@ L’ensemble du processus repose sur plusieurs scripts Python, activés séquent
 
   ## Zoom sur la pipeline de prediction 
 
+  ### Au coeur de la Pipeline:
+Le cœur du modèle repose sur une pipeline Scikit-learn relativement complexe, illustrée ci-dessous :
+<p align="center">
+  <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/pipeline.png?raw=true" alt="Architecture" width="1000">
+</p>
+Cette pipeline est encadrée par deux classes personnalisées :
 
+  **Preprocessor(BaseEstimator, TransformerMixin) :**
+    Ce préprocesseur intervient avant la pipeline. Il concatène le titre et le texte de chaque commentaire pour en faire un champ unique d’analyse. Il sélectionne également les colonnes pertinentes, et convertit certaines variables au bon format (booléen, catégoriel, etc.).
+
+  **LabelCorrection(BaseEstimator, TransformerMixin) :**
+    Cette étape, placée après la prédiction, applique des règles logiques simples pour corriger certains cas incohérents :
+
+  - Si la note est ≥ 4 et qu’aucun problème n’a été détecté, le label est corrigé en “aucun problème”.
+
+  - Si aucun label n’a été détecté, on assigne “autre problème” pour ne pas produire de sortie vide.
+    
   ### Choix des hyperparamètres avec GridSearchCV
   Afin d’optimiser les performances de la pipeline, une recherche sur grille (GridSearchCV) a été menée en validation croisée (cross-validation) sur l’ensemble labellisé de 4 600 commentaires.
 L’objectif était de trouver la meilleure combinaison de paramètres pour chaque étape du traitement de texte et du modèle de classification.
@@ -60,15 +76,15 @@ Les éléments suivants ont été testés :
 
 #### TF-IDF Vectorizer :
 
-  - max_features : nombre maximum de mots conservés *(retenu : None)*
+  - **max_features :** nombre maximum de mots conservés *(retenu : None)*
 
-  - min_df : fréquence minimale d’apparition d’un mot *(retenu : 2)*
+  - **min_df :** fréquence minimale d’apparition d’un mot *(retenu : 2)*
 
-  - ngram_range : trigrammes , bigrammes testés en plus des unigrams *( retenu : (1, 3))*
+  - **ngram_range :** trigrammes , bigrammes testés en plus des unigrams *( retenu : (1, 3))*
 
 #### Réduction de dimension (SVD) :
 
-- n_components : nombre de dimensions retenues *(retenu : 20 )* 
+- **n_components :** nombre de dimensions retenues *(retenu : 20 )* 
 
 #### Modèles testés :
 
