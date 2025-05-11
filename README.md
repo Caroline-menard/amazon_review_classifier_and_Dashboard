@@ -47,5 +47,46 @@ L’ensemble du processus repose sur plusieurs scripts Python, activés séquent
 
   **batch_loop.py :** exécute main.py en boucle jusqu’à ce qu’il n’y ait plus de données à prédire. Une fois la base entièrement traitée, le processus s’arrête automatiquement.
 
-  **utils.py :** regroupe l’ensemble des composants du modèle : fonctions de prétraitement, vectorisation (TF-IDF + SVD), classifieur (XGBoost), et corrections post-prédiction.
+  **utils.py :** regroupe l’ensemble des composants du modèle : fonctions de prétraitement, vectorisation (TF-IDF + SVD), classifieur (XGBClassifier), et corrections post-prédiction.
+
+  ## Zoom sur la pipeline de prediction 
+
+
+  ### Choix des hyperparamètres avec GridSearchCV
+  Afin d’optimiser les performances de la pipeline, une recherche sur grille (GridSearchCV) a été menée en validation croisée (cross-validation) sur l’ensemble labellisé de 4 600 commentaires.
+L’objectif était de trouver la meilleure combinaison de paramètres pour chaque étape du traitement de texte et du modèle de classification.
+
+Les éléments suivants ont été testés :
+
+#### TF-IDF Vectorizer :
+
+  - max_features : nombre maximum de mots conservés *(retenu : None)*
+
+  - min_df : fréquence minimale d’apparition d’un mot *(retenu : 2)*
+
+  - ngram_range : trigrammes , bigrammes testés en plus des unigrams *( retenu : (1, 3))*
+
+#### Réduction de dimension (SVD) :
+
+- n_components : nombre de dimensions retenues *(retenu : 20 )* 
+
+#### Modèles testés :
+
+ - RandomForestClassifier
+
+ - HistGradientBoostingClassifier
+
+ - ✅ XGBoostClassifier *(retenu pour la suite)*
+
+La grille a été explorée avec une validation croisée à 3 plis (cv=3) et un scoring basé sur le F1-micro, particulièrement adapté aux tâches multi-label.
+
+   **Score moyen obtenu :** **0.7615**
+    
+  Ce score est considéré comme honorable compte tenu :
+
+  De la nature multi-label du problème (chaque avis pouvant relever de plusieurs problématiques),
+
+  Ainsi que de la variabilité des textes, souvent rédigés par des particuliers dans un langage non standardisé.
+
+Un extrait du notebook **GridSearchCV.ipynb est disponible** dans le dépôt pour consultation.
 
