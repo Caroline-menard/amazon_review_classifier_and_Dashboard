@@ -1,0 +1,18 @@
+# Fichiers système
+.DS_Store
+# 🛡️ Fichiers sensibles
+.env
+config/
+
+# 🔐 Données confidentielles
+Model_elements/final_labeled.csv
+
+# 🧹 Fichiers temporaires et artefacts Python
+*.pkl
+*.joblib
+*.tmp
+__pycache__/
+*.pyc
+
+# 🚫 Sauvegardes Jupyter
+**/.ipynb_checkpoints/

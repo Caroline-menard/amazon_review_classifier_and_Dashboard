@@ -1,0 +1,127 @@
+:root {
+  --green-main: #8DCAB8;     /* Vert pastel */
+  --green-medium: #6FBFA5;   /* Vert accentué */
+  --green-dark: #3E7F6C;     /* Vert foncé */
+  --blue-nav: #1C2B49;       /* Bleu foncé bandeau */
+  --cream: #F8F9FA;          /* Fond clair */
+  --text-dark: #263238;      /* Texte gris foncé */
+  --white: #F3F9F7;          /* fond blanc vert pour le metrics */
+  --text-light: #FFFFFF;     /* Texte blanc */
+  --super-white :  #FFFFFF; 
+}
+
+/* Fond général */
+html, body, .stApp {
+  background-color: var(--cream) !important;
+  color: var(--text-dark);
+  font-family: 'Helvetica', sans-serif;
+}
+
+/* Titres */
+h1, h2, h3 {
+  color: var(--text-dark);
+  font-family: 'Helvetica', sans-serif;
+  font-weight: bold;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+  background-color: var(--blue-nav) !important;
+  color: var(--text-light) !important;
+}
+
+[data-testid="stSidebar"] * {
+  color: var(--text-light) !important;
+  font-weight: 500;
+}
+
+/* Cartes / contenants */
+.block-container {
+  padding: 2rem;
+}
+/* Metrics classiques */
+[data-testid="stMetric"] {
+  background-color: var(--white);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin: 0.5rem 0;
+  height: 125px;
+  color: var(--text-dark);
+  
+  /* Centrage du contenu */
+  text-align: center !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-metric {
+  background-color: var(--white);
+  border-radius: 10px;
+  padding: 0.5rem 1rem 1rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin: 0.5rem 0;
+  color: var(--text-dark);
+  text-align: center;
+  height: 125px;  /* même hauteur que les autres */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.custom-metric h4 {
+  font-size: 1rem;
+  font-weight: normal;  /* comme les titres metric classiques */
+  margin: 0;
+}
+.custom-metric img {
+  margin-top: 0rem;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  height: 60px;  /* ajuste ici selon ton ressenti */
+}
+.graph-container {
+  background-color: var(--super-white );
+  border-radius: 0px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin: 1rem 0;
+  min-height: 350px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;         /* Aligner à gauche */
+  position: relative;
+  align-items: stretch; 
+  /* align-items: center;        centrer horizontalement */
+  justify-content: center;    /* centrer verticalement */
+  text-align: center;
+}
+.graph-container h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+
+/* Barres et axes matplotlib */
+.plot-container {
+  color: var(--text-dark);
+}
+
+/* Colonne verticale du menu principal */
+header {
+  background: none;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
