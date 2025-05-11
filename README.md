@@ -56,7 +56,8 @@ Le cœur du modèle repose sur une pipeline Scikit-learn relativement complexe, 
 <p align="center">
   <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/pipeline.png?raw=true" alt="Architecture" width="1000">
 </p>
-Cette pipeline est encadrée par deux classes personnalisées :
+
+##### Cette pipeline est encadrée par deux classes personnalisées :
 
   **Preprocessor(BaseEstimator, TransformerMixin) :**
     Ce préprocesseur intervient avant la pipeline. Il concatène le titre et le texte de chaque commentaire pour en faire un champ unique d’analyse. Il sélectionne également les colonnes pertinentes, et convertit certaines variables au bon format (booléen, catégoriel, etc.).
@@ -67,6 +68,18 @@ Cette pipeline est encadrée par deux classes personnalisées :
   - Si la note est ≥ 4 et qu’aucun problème n’a été détecté, le label est corrigé en “aucun problème”.
 
   - Si aucun label n’a été détecté, on assigne “autre problème” pour ne pas produire de sortie vide.
+
+##### Structure interne de la pipeline :
+
+On distingue deux grands groupes de features :
+
+ - Un premier groupe issu des textes (titre + commentaire), vectorisés avec un **TfidfVectorizer** puis réduits à 20 dimensions grâce à une décomposition en composantes principales **(TruncatedSVD)**.
+
+ - Un second groupe constitué de features construites à la main, via des **FunctionTransformer**.
+  Il s'agit notamment de détecteurs de mots-clés ou d'expressions régulières liés à des typologies précises de problèmes : retours clients, qualité perçue, effets secondaires, etc.
+    Ces features sont ensuite standardisées par un **StandardScaler**.
+
+La sortie est ensuite transmise à un **MultiOutputClassifier**, qui encapsule un XGBClassifier pour traiter la classification multilabel.
     
   ### Choix des hyperparamètres avec GridSearchCV
   Afin d’optimiser les performances de la pipeline, une recherche sur grille (GridSearchCV) a été menée en validation croisée (cross-validation) sur l’ensemble labellisé de 4 600 commentaires.
