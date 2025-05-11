@@ -11,7 +11,7 @@ Ce projet est une application de classification automatique d’avis clients cou
 Les données proviennent d’un jeu de données public mis à disposition par Amazon dans le cadre de son programme Amazon Customer Reviews Dataset.
 Ce jeu contient plusieurs millions d’avis laissés par des clients Amazon (Je n'ai utilisé que des avis de la catégorie *"beauty"*.)
 
-👉 👉 Dans ce projet, un jeu de **4 600 avis** a été manuellement labellisé pour entraîner un modèle de classification multi-label.
+👉 👉 Dans ce projet, un jeu de **4 600 avis** a été manuellement labellisé pour entraîner un modèle de classification multi-label *(et multi-output)*.
 Ce modèle a ensuite été utilisé pour prédire automatiquement les catégories de problème sur plus de **150 000 commentaires** supplémentaires.
 
 
