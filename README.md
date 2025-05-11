@@ -35,3 +35,17 @@ Il permet de visualiser la répartition des types de problèmes signalés, filtr
 
 Vous êtes curieux ? Il est disponible ici 👉 [Voir le dashboard en ligne](https://caroline-menard-amazon-reviews-dashboard.streamlit.app/)
 
+### Pipeline de prédiction
+
+L’ensemble du processus repose sur plusieurs scripts Python, activés séquentiellement pour automatiser la prédiction des labels sur les avis clients :
+
+  **predict_batch.py :** sélectionne un batch de commentaires non encore labellisés depuis la base de données, exécute la pipeline de prédiction, et génère les résultats.
+
+  **etl_insert.py :** insère ces résultats dans la base Supabase.
+
+  **main.py** : orchestre une session de prédiction complète en appelant successivement predict_batch.py puis etl_insert.py.
+
+  **batch_loop.py :** exécute main.py en boucle jusqu’à ce qu’il n’y ait plus de données à prédire. Une fois la base entièrement traitée, le processus s’arrête automatiquement.
+
+  **utils.py :** regroupe l’ensemble des composants du modèle : fonctions de prétraitement, vectorisation (TF-IDF + SVD), classifieur (XGBoost), et corrections post-prédiction.
+
