@@ -119,3 +119,21 @@ La grille a été explorée avec une validation croisée à 3 plis (cv=3) et un 
 
 Un extrait du notebook **GridSearchCV.ipynb est disponible** dans le dépôt pour consultation.
 
+
+## Le dashboard avec streamlit
+L’application Streamlit comprend quatre pages :
+
+  - Une page d’accueil présentant des informations générales et quelques graphiques clés.
+
+  - Une vue d’ensemble de l’évolution des problèmes signalés dans le temps.
+
+  - Un zoom sur les produits les plus concernés par type de problème.
+
+  - Une page d’export, qui permet de télécharger une sélection de commentaires selon les filtres choisis (en excel ou csv au choix)
+
+Je n’en dis pas plus…
+➡️ Pour tester le dashboard en ligne, rendez-vous ici : [Voir le dashboard en ligne](https://caroline-menard-amazon-reviews-dashboard.streamlit.app/)
+
+<p align="center">
+  <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/dashboard_vue.png?raw=true" alt="Architecture" width="1000">
+</p>
