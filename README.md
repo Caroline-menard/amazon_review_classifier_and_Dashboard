@@ -2,6 +2,8 @@
   <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/logo_blanc.png?raw=true" alt="Logo Caroline Ménard" width="120">
 </p>
 
+🇬🇧 Looking for the English version? [Click here](https://github.com/Caroline-menard/amazon_review_classifier_and_Dashboard/blob/main/README.en.md).
+
 # Amazon Review Classifier & Dashboard
 
 Ce projet est une application de classification automatique d’avis clients couplée à un dashboard interactif développé avec Streamlit. Il permet de détecter et visualiser les principales typologies de problèmes signalés par les clients dans les avis Amazon.
