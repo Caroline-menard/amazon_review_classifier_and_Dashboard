@@ -60,7 +60,7 @@ Le cœur du modèle repose sur une pipeline Scikit-learn relativement complexe, 
 
  > **LabelCorrection(BaseEstimator, TransformerMixin) :** <br>
     Cette étape, placée après la prédiction, applique des règles logiques simples pour corriger certains cas incohérents :<br>
-  > - Si la note est ≥ 4 et qu’aucun problème n’a été détecté, le label est corrigé en “aucun problème”.<br>
+  > - Si la note est ≥ 4 le label est corrigé en “aucun problème” (Seul lle label retour_client est conservé s’il est activé.).<br>
   > - Si aucun label n’a été détecté, on assigne “autre problème” pour ne pas produire de sortie vide.
 
 ##### Structure interne de la pipeline 
