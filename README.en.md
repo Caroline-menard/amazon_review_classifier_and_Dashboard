@@ -72,3 +72,43 @@ The pipeline is composed of two main groups of features:
         These features are then standardized using a **StandardScaler**.
 
 The final output is passed to a MultiOutputClassifier, which wraps an **XGBClassifier** to handle multilabel classification.
+
+### Hyperparameter Tuning with GridSearchCV
+
+To optimize the pipeline’s performance, a grid search **(GridSearchCV)** with **cross-validation** was conducted on the labeled dataset of 4,600 reviews.
+The goal was to identify the best combination of parameters for each stage of the text processing and classification model.
+
+The following elements were tested:
+#### TF-IDF Vectorizer
+
+  - **max_features:** maximum number of words retained *(selected: None)*
+
+  - **min_df:** minimum document frequency for a word to be kept *(selected: 2)*
+
+  - **ngram_range:** tested unigrams, bigrams, and trigrams *(selected: (1, 3))*
+
+#### Dimensionality Reduction (SVD)
+
+  - **n_components:** number of retained dimensions *(selected: 20)*
+
+#### Models Tested
+
+  >*Hyperparameter tuning was performed for each model, including parameters such as max_depth, learning_rate, or n_estimators...*
+
+  - RandomForestClassifier
+
+  - HistGradientBoostingClassifier
+
+  - ✅ XGBoostClassifier (selected for final deployment)
+
+The grid was explored using 3-fold cross-validation (cv=3), with **F1-micro** as the scoring metric, which is particularly suited to multi-label classification tasks.
+
+**Average score obtained: 0.7615**
+
+This score is considered respectable given:
+
+  - The multi-label nature of the problem (each review may involve multiple issue categories),
+
+  - As well as the variability of the texts, which are often written by individual customers using non-standardized language.
+
+>An excerpt from the GridSearchCV.ipynb notebook is available in the repository for review.*
