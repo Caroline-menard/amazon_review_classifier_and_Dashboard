@@ -33,3 +33,42 @@ It allows users to visualize the distribution of reported issue types, filter th
 
 Curious to try it out? It’s available here 👉 [Launch the dashboard](https://caroline-menard-amazon-reviews-dashboard.streamlit.app/)
 
+### Prediction Pipeline
+
+The entire process relies on several Python scripts, executed sequentially to automate label prediction on customer reviews:
+
+  > - predict_batch.py: selects a batch of unlabeled reviews from the database, runs the prediction pipeline, and generates the results.<br>
+  > -  etl_insert.py: inserts these results into the Supabase database.<br>
+  > -   main.py: orchestrates a full prediction session by calling predict_batch.py followed by etl_insert.py.<br>
+  > -   batch_loop.py: continuously runs main.py until there are no more reviews to process. Once the database is fully annotated, the loop stops automatically.<br>
+  > -  utils.py: contains all the model components: preprocessing and feature extraction functions, vectorization (TF-IDF + SVD), classifier (XGBClassifier), and post-prediction corrections.<br>
+
+## Focus on the Prediction Pipeline
+### the Core of the Pipeline
+
+The core of the model relies on a relatively complex Scikit-learn pipeline, illustrated below:
+<p align="center">
+  <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/pipeline.png?raw=true" alt="Architecture" width="1000">
+</p>
+
+##### This pipeline is framed by two custom classes:
+
+  >  **Preprocessor(BaseEstimator, TransformerMixin):** <br>
+    This preprocessor operates before the main pipeline. It concatenates the title and text of each review into a single analysis field, selects relevant columns, and converts certain variables into the appropriate format (boolean, categorical, etc.).
+
+  >  **LabelCorrection(BaseEstimator, TransformerMixin):** <br>
+    This post-prediction step applies simple logical rules to correct inconsistent outputs:<br>
+  > -If the rating is ≥ 4, the label is corrected to “no issue” (only the retour_client label is preserved if activated).<br>
+  > -If no label is detected, the label “other issue” is assigned to avoid empty predictions.
+
+##### Internal Structure of the Pipeline
+
+The pipeline is composed of two main groups of features:
+
+  > - The first group is derived from text data (title + review), vectorized using a TfidfVectorizer and reduced to 20 dimensions via TruncatedSVD (dimensionality reduction).<br>
+
+  > - The second group consists of handcrafted features created using **FunctionTransformer**.<br>
+        These include keyword detectors or regular expression matches related to specific issue categories: customer returns, perceived quality, side effects, etc.
+        These features are then standardized using a **StandardScaler**.
+
+The final output is passed to a MultiOutputClassifier, which wraps an **XGBClassifier** to handle multilabel classification.
