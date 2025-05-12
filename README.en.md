@@ -111,4 +111,23 @@ This score is considered respectable given:
 
   - As well as the variability of the texts, which are often written by individual customers using non-standardized language.
 
->An excerpt from the GridSearchCV.ipynb notebook is available in the repository for review.*
+>*An excerpt from the GridSearchCV.ipynb notebook is available in the repository for review.*
+
+## The Streamlit Dashboard
+
+The Streamlit app includes four pages:
+
+   > - A homepage presenting general information and key visualizations.<br>
+
+   > - An overview of how reported issues have evolved over time.<br>
+
+  > - A focus view on the products most affected by each type of issue.<br>
+
+   > - An export page, allowing users to download a filtered selection of reviews (in Excel or CSV format).
+
+I won’t spoil the rest...
+➡️ To try the dashboard live, head over here: [Launch the dashboard](https://caroline-menard-amazon-reviews-dashboard.streamlit.app/)
+
+<p align="center">
+  <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/dashboard_vue.png?raw=true" alt="Architecture" width="1000">
+</p>
