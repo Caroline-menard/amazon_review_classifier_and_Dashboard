@@ -127,6 +127,8 @@ L’application Streamlit comprend quatre pages :
 Je n’en dis pas plus…
 ➡️ Pour tester le dashboard en ligne, rendez-vous ici : [Voir le dashboard en ligne](https://caroline-menard-amazon-reviews-dashboard.streamlit.app/)
 
+**⚠️ L'application peut mettre quelques secondes à se charger si elle était en veille (comportement normal avec la version gratuite de Streamlit Cloud).**
+
 <p align="center">
   <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/dashboard_vue.png?raw=true" alt="Architecture" width="1000">
 </p>
