@@ -136,7 +136,7 @@ I won’t spoil the rest...
   <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/dashboard_vue.png?raw=true" alt="Architecture" width="1000">
 </p>
 
-## Installation & Launch
+### Installation & Launch
 
 Recommended Python version: **3.9.12**
 
