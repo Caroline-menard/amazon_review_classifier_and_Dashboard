@@ -130,6 +130,8 @@ The Streamlit app includes four pages:
 I won’t spoil the rest...
 ➡️ To try the dashboard live, head over here: [Launch the dashboard](https://caroline-menard-amazon-reviews-dashboard.streamlit.app/)
 
+**⚠️ Note: The hosted version on Streamlit Cloud may take a few seconds to wake up if inactive.**
+
 <p align="center">
   <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/dashboard_vue.png?raw=true" alt="Architecture" width="1000">
 </p>
