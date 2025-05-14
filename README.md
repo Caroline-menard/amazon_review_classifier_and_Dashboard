@@ -132,3 +132,14 @@ Je n’en dis pas plus…
 <p align="center">
   <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/dashboard_vue.png?raw=true" alt="Architecture" width="1000">
 </p>
+
+## Installation et lancement:
+Python 3.9.12 recommandé.
+
+**Se placer à la racine du dossier `my_app`**
+
+**Installation des requirements**
+    `pip install -r requirements.txt`
+
+**Demarrage du dashboard:**
+    `streamlit run Page_accueil.py`
