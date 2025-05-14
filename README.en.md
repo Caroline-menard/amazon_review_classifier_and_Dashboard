@@ -135,3 +135,15 @@ I won’t spoil the rest...
 <p align="center">
   <img src="https://github.com/Caroline-menard/-Caroline-menard/blob/main/dashboard_vue.png?raw=true" alt="Architecture" width="1000">
 </p>
+
+## Installation & Launch
+
+Recommended Python version: **3.9.12**
+
+**Navigate to the root of the `my_app` folder**
+
+**Install dependencies**  
+`pip install -r requirements.txt`
+
+**Start the dashboard**  
+`streamlit run Page_accueil.py`
